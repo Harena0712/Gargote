@@ -21,9 +21,6 @@ Ouvrez `database/01_schema.sql`.
 1. Écrivez le schéma relationnel des 4 tables, en soulignant les clés primaires et en marquant les clés étrangères d’un `#` :
    `plat (id, nom, prix, #id_categorie)`…
 2. Pourquoi `commande_ligne` contient-elle une colonne `prix_unitaire`, alors que le prix est déjà dans `plat` ? Donnez un exemple concret où les deux valeurs seraient différentes.
-   - On utilise `prix_unitaire` dans la table `commande_ligne`  pour calculer les montants totals des commandes deja enregister au cas où le prix des plats changent
-   - On utilise le `prix` dans la table `plat` pour afficher le prix a jour de chaque plat, et utiliser aussi pour avoir le `prix_unitaire` dans la table `commande_ligne`
-
 3. Que se passe-t-il pour les lignes d’une commande quand on supprime la commande ? Quelle instruction en est responsable ?
 4. Repérez **trois données absurdes** que le schéma actuel accepte sans broncher (indice : essayez d’insérer à la main un prix négatif). Notez-les : vous les corrigerez au niveau 1 et 2.
 
