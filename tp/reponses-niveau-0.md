@@ -159,3 +159,42 @@ Vue est nouveau pour vous. Le code de base utilise sept notions ; trouvez **un e
 
 - Sans `watch`, les champs du formulaire ne serait pas preremplis car elle verfie si un plat a été selectionné par le bouton **Modifier** et preremplis les champs
 
+## 0.6 Premières modifications
+
+### 0.6.11 Explication de l'apparition du nouvelle categorie
+- Dans `CarteView.vue`, la fonction `charger` appel une requet pour prendre la liste des categories grace a cette code dans `api.js`
+    ```
+    categories: {
+        lister: () => requete('GET', '/categories'),
+    },
+    ```
+- Une route a été configuré dans `backend/app/Config/Route.php` :
+    ```
+    $routes->get('categories', 'Categories::index');
+    ```
+- Puis la fonction `index` du controller `backend/app/Controllers/Categories.php` a été appeler par ce route, cette fonction prend la liste des categorie et la renvoie en JSON
+    ```
+    public function index()
+    {
+        $categories = model(CategorieModel::class)->orderBy('libelle')->findAll();
+
+        return $this->respond($categories);
+    }
+    ```
+- Apres `CarteView.vue` prend les reponse dans les lignes
+    ```
+    ;[plats.value, categories.value] = await Promise.all([
+      api.plats.lister(),
+      api.categories.lister(),
+    ])
+    ```
+- Enfin `PlatForm.vue` prend ces categorie grace au props definie puis les liste dans le champs select
+    ```
+    <PlatForm
+      :plat="platSelectionne"
+      :categories="categories"
+      @enregistre="surEnregistrement"
+      @annule="platSelectionne = null"
+    />
+    ```
+
