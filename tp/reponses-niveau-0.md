@@ -133,3 +133,29 @@ curl -i -X POST http://localhost:8080/api/commandes \
 
 ### 0.4.8. Création d’une commande 
 - Le code metier de la creation d'une commande est dans `Services/CommandService.php`, cette separation permet une bonne lisibilité du code
+
+## 0.5 Repérer les notions de Vue
+
+Vue est nouveau pour vous. Le code de base utilise sept notions ; trouvez **un exemple de chacune** (fichier + ligne) et expliquez-le en une phrase.
+
+| Notion | À quoi ça sert | Votre exemple |
+|---|---|---|
+| `ref()` | une variable dont le changement met l’écran à jour | `PlatForm.vue`: `const message = ref('')` => la valeur de `message` change en fonction du resultat du requet et met a jour automatiquement l'information a l'ecran |
+| `computed()` | une valeur calculée à partir d’autres, recalculée automatiquement | `PlatList.vue`: `const groupes = computed(() => parCategorie(props.plats))` =>  la valeur de `groupe` se recalcul automatiquement quand les données `props.plats` change grace a la fonctino `computed`|
+| `v-for` | répéter un élément pour chaque élément d’une liste | `PlatList.vue`: `<li v-for="plat in liste" :key="plat.id">` => ici l'element `plat` se repete jusqu'a `liste.length` |
+| `v-if` / `v-else` | afficher un élément seulement si une condition est vraie | `Panier.vue`: `<p v-if="lignes.length === 0" class="vide">Touchez un plat de la carte pour l’ajouter.</p> <ul v-else class="panier-liste">` => Le text `Touchez un plat de la carte pour l’ajouter.` s'affiche si la condition `lignes.length === 0` dans `v-if` est vrai, sinon on affiche la liste grace dans condition `v-else`|
+| `v-model` | lier un champ de formulaire à une variable, dans les deux sens | `CommandeView.vue`: `<input v-model.number="numeroTable" type="number" min="1" />` => le variable `numeroTable` prend directement les données saisie sur le champs grace a `v-model` |
+| `defineProps` | recevoir des données du composant parent | `Panier.vue`: `const props = defineProps({ lignes: { type: Array, required: true }, })` => le props `lignes` recoit les données transmis par le composant parent puis utiliser dans le composant fille grace au props `lignes` |
+| `defineEmits` / `emit` | envoyer un événement au composant parent | `PlatForm.vue`: `const emit = defineEmits(['enregistre', 'annule'])` => Les emits `enregistre` et `annule` sont envoyer au composant parent puis traiter selon les besoins |
+| `onMounted` | exécuter du code quand le composant apparaît | `CarteView.vue`: `onMounted(charger)` => Execute la fonction `charge` qui charge les données a afficher quand le composant apparait |
+
+### 0.5.9 Quantité plat dans le commande : `plus` et `moins`
+- `Panier.vue` émet `plus` et `moins` parcequ'il affiche juste les données envoyées par le composant parent, donc il ne peut pas les manipulé directement, d'où l'utilisation des `plus` et `moins`
+
+- C'est `CommandeView.vue` qui modifie réellement la quantité grace au fonction `ajouter` et `retirer` 
+
+### 0.5.9 Quantité plat dans le commande : `plus` et `moins`
+- `watch` sert a preremplir les champs du formulaire quand on clique sur **Modifier** d’un plat
+
+- Sans `watch`, les champs du formulaire ne serait pas preremplis car elle verfie si un plat a été selectionné par le bouton **Modifier** et preremplis les champs
+
