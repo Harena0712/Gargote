@@ -19,6 +19,7 @@ const vueCourante = computed(() => onglets.find((o) => o.id === ongletActif.valu
   <header class="entete">
     <div class="enseigne">
       <span class="enseigne-nom">Gargote</span>
+      <!-- Modification niveau 0 -->
       <span class="enseigne-lieu">Bao-Gote</span>
     </div>
 
