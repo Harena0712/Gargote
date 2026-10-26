@@ -21,18 +21,9 @@ CREATE TABLE plat_du_jour (
     date_jour DATE PRIMARY KEY,
     id_plat INT NOT NULL REFERENCES plat(id)
 );
--- C'est la n=colonne date_jour qui est choisi comme clé primaire pour ne pouvoir qu'ajouter un seul plat par jour et sans aucune ligne de PHP
 
 
--- 1.1.2 proposition d’ajouter une colonne est_plat_du_jour BOOLEAN dans plat
--- ===========================================================================
-
--- On peut mettre plusieur ligne de la colonne est_plat_du_jour TRUE et donc on ne pourait pas garantir un seul plat du jour par jour
--- On ne pourrait pas savoir les plat du jour avant
-
-
--- ==============
--- Verification
--- ==============
-
--- La seconde exécution a échoué, et c'est normal car elles existent deja
+-- 1.2.3 Les messages d'erreur lors de l'insertion d'un plat à 0 Ar et un plat dont le nom existe déjà
+-- =====================================================================================================
+INSERT INTO plat (nom, prix, id_categorie, description, disponible) VALUES ('Nouveau plat', 0, (SELECT id FROM categorie WHERE libelle = 'Plat'), 'nouveau plat avec des nouvelles ingredients', TRUE);
+INSERT INTO plat (nom, prix, id_categorie, description, disponible) VALUES ('Henakisoa sy tsaramaso', 10000, (SELECT id FROM categorie WHERE libelle = 'Plat'), 'nouveau plat avec des nouvelles ingredients', TRUE);
