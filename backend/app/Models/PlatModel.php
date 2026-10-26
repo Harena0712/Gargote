@@ -15,11 +15,14 @@ class PlatModel extends Model
         'id'           => 'int',
         'prix'         => 'int',
         'id_categorie' => 'int',
+        // Modofication niveau 1 (Ajoutez disponible à $casts)
+        'disponible'   => 'boolean',
     ];
 
     // Seuls ces champs peuvent être écrits par insert() / update().
     // Un champ ajouté dans la table doit AUSSI être ajouté ici.
-    protected $allowedFields = ['nom', 'prix', 'id_categorie'];
+    // Modofication niveau 1 (Ajoutez description et disponible à $allowedFields)
+    protected $allowedFields = ['nom', 'prix', 'id_categorie', 'description', 'disponible'];
 
     // Règles de validation : vérifiées automatiquement avant insert() / update().
     // Liste des règles disponibles :
